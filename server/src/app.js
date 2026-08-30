@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
+const path = require("path");
 
 const env = require('./config/env');
 const { notFound, errorHandler } = require('./middleware/errorHandler');
@@ -35,6 +36,17 @@ app.use('/api/boards', boardRoutes);
 app.use('/api/columns', columnRoutes);
 app.use('/api/tickets', ticketRoutes);
 app.use('/api/tickets/:ticketId/comments', commentRoutes);
+
+
+
+// Create a static folder for production build
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, '../../client/dist')));
+
+  app.get('*', (_req, res) => {
+    res.sendFile(path.join(__dirname, '../../client/dist/index.html'));
+  });
+}
 
 app.use(notFound);
 app.use(errorHandler);

@@ -2,6 +2,7 @@
   "name": "ticket-prompt-server",
   "version": "1.0.0",
   "description": "Backend for the lightweight Jira-style ticket system",
+  "type": "commonjs",
   "main": "src/index.js",
   "scripts": {
     "dev": "nodemon src/index.js",

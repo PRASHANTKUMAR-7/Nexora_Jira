@@ -100,10 +100,11 @@ export function TicketCardContent({ ticket, dragging = false }) {
   );
 }
 
-export default function TicketCard({ ticket, onClick }) {
+export default function TicketCard({ ticket, onClick, canDrag = true }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: `ticket:${ticket._id}`,
     data: { type: 'ticket' },
+    disabled: !canDrag,
   });
 
   const style = {
@@ -118,7 +119,7 @@ export default function TicketCard({ ticket, onClick }) {
       {...listeners}
       onClick={() => onClick(ticket)}
       style={style}
-      className="cursor-grab active:cursor-grabbing"
+      className={canDrag ? 'cursor-grab active:cursor-grabbing' : 'cursor-default'}
     >
       {/* When a DragOverlay is used, hide the source card during drag and show a placeholder */}
       <div

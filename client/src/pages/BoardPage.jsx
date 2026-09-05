@@ -38,6 +38,16 @@ export default function BoardPage() {
 
   const canManage = myRole !== 'member';
 
+  const isTicketCreatorOrAssignee = (t) => {
+    const uid = user?._id ? String(user._id) : '';
+    return (
+      String(t.reporter?._id || t.reporter || '') === uid ||
+      (t.assignees || []).some((a) => String(a._id || a || '') === uid)
+    );
+  };
+
+  const canMoveTicket = (t) => isTicketCreatorOrAssignee(t);
+
   const [error, setError] = useState('');
   const [columnModal, setColumnModal] = useState(false);
   const [columnForm, setColumnForm] = useState({ name: '', color: '#4f46e5', wipLimit: '' });
@@ -134,6 +144,8 @@ export default function BoardPage() {
   const onDragStart = (event) => {
     const activeId = String(event.active.id);
     if (activeId.startsWith('ticket:')) {
+      const moving = tickets.find((t) => t._id === activeId.replace('ticket:', ''));
+      if (moving && !canMoveTicket(moving)) return;
       setActiveTicketId(activeId.replace('ticket:', ''));
     }
   };
@@ -388,6 +400,7 @@ export default function BoardPage() {
                 onEditColumn={openEditColumn}
                 onDeleteColumn={onDeleteColumn}
                 canEdit={canManage}
+                canMoveTicket={canMoveTicket}
                 showAdd={String(col.name).trim().toLowerCase() === 'to do'}
               />
             </div>

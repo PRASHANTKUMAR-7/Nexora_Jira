@@ -29,6 +29,7 @@ export default function Column({
   onDeleteColumn,
   canEdit = true,
   showAdd = true,
+  canMoveTicket,
 }) {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
     id: `column:${column._id}`,
@@ -117,7 +118,12 @@ export default function Column({
             <div className="text-center text-[12px] text-gray-400 py-6">No tickets</div>
           )}
           {tickets.map((t) => (
-            <TicketCard key={t._id} ticket={t} onClick={onOpenTicket} />
+            <TicketCard
+              key={t._id}
+              ticket={t}
+              onClick={onOpenTicket}
+              canDrag={!canMoveTicket || canMoveTicket(t)}
+            />
           ))}
         </div>
       </SortableContext>

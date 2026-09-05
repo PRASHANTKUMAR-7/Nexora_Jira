@@ -231,9 +231,13 @@ const moveTicket = asyncHandler(async (req, res) => {
   if (!ticket) {
     return failure(res, 'Ticket not found', 404);
   }
-  const { membership } = await assertTicketAccess(ticket, req.userId);
-  if (membership.role === 'member' && ticket.reporter.toString() !== req.userId) {
-    return failure(res, 'Members can only move their own tickets', 403);
+  const { membership, error } = await assertTicketAccess(ticket, req.userId);
+  if (error) return failure(res, error.message, error.status);
+  const isCreatorOrAssignee =
+    ticket.reporter.toString() === req.userId ||
+    (ticket.assignees || []).some((a) => a && a.toString() === req.userId);
+  if (!isCreatorOrAssignee) {
+    return failure(res, 'Only the ticket creator or an assignee can move this ticket', 403);
   }
 
   const { column, order } = req.body;

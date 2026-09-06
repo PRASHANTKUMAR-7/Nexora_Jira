@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = import.meta.env.MODE === "deployment" ? "http://localhost:5001/api" : "/api";
+const BASE_URL = import.meta.env.DEV ? "http://localhost:5001/api" : "/api";
 
 
 const api = axios.create({
@@ -24,7 +24,7 @@ async function refreshAccessToken() {
 
   if (!refreshPromise) {
     refreshPromise = axios
-      .post(`${API_URL}/auth/refresh`, { refreshToken })
+      .post(`${BASE_URL}/auth/refresh`, { refreshToken })
       .then((res) => {
         const { accessToken: at, refreshToken: rt } = res.data.data;
         accessToken = at;

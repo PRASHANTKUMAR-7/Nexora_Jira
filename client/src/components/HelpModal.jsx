@@ -37,7 +37,7 @@ const SECTIONS = [
 
 export default function HelpModal({ open, onClose }) {
   return (
-    <Modal open={open} onClose={onClose} title="How to use Jira" width="640px">
+    <Modal open={open} onClose={onClose} title="How to use Sprintly" width="640px">
       <p style={{ color: 'var(--muted)', marginTop: 0 }}>
         Here is a quick tour of the app and what each feature does.
       </p>

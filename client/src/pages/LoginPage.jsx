@@ -30,7 +30,7 @@ export default function LoginPage() {
     <div style={{ display: 'flex', minHeight: '100vh', alignItems: 'center', justifyContent: 'center' }}>
       <div className="card" style={{ width: 380 }}>
         <h2 style={{ marginBottom: 4 }}>Welcome back</h2>
-        <p style={{ color: 'var(--muted)', marginTop: 0, marginBottom: 20 }}>Sign in to Jira</p>
+        <p style={{ color: 'var(--muted)', marginTop: 0, marginBottom: 20 }}>Sign in to Sprintly</p>
         {error && <div className="alert alert-error">{error}</div>}
         <form onSubmit={onSubmit}>
           <div className="form-group">

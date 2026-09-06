@@ -16,8 +16,9 @@ export default function Topbar() {
 
   return (
     <header className="topbar">
-      <Link to="/" className="logo">
-        Jira
+      <Link to="/" className="logo" aria-label="Sprintly home">
+        <img src="/sprintly_logo.png" alt="Sprintly logo" className="logo-img" />
+        Sprintly
       </Link>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
         <button className="btn btn-sm" onClick={() => setHelpOpen(true)}>

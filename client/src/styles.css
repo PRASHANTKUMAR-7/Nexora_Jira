@@ -332,6 +332,19 @@ input, textarea, select {
   font-weight: 600;
 }
 
+.logo-img {
+  width: auto;
+  height: 26px;
+  border-radius: 6px;
+  display: block;
+}
+
+@media (max-width: 480px) {
+  .logo-img {
+    height: 22px;
+  }
+}
+
 .topbar a {
   color: inherit;
 }

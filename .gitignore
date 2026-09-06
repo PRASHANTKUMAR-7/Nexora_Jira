@@ -1,7 +1,15 @@
+# Dependencies
 node_modules/
+
+# Production builds
 dist/
+client/dist/
+
+# Environment variables
 .env
-*.local
-.DS_Store
 server/.env
 client/.env
+*.local
+
+# OS files
+.DS_Store
